@@ -1,0 +1,952 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../requirements/">
+      
+      
+        <link rel="next" href="../permissions/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Architecture Overview - TrackUs - Technical Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#system-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="TrackUs - Technical Documentation" class="md-header__button md-logo" aria-label="TrackUs - Technical Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TrackUs - Technical Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="TrackUs - Technical Documentation" class="md-nav__button md-logo" aria-label="TrackUs - Technical Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    TrackUs - Technical Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../requirements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#request-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Request Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rest-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REST API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-time-websockets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-Time WebSockets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architectural-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architectural Principles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deep-dive-tech-stack-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deep Dive: Tech Stack &amp; Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deep Dive: Tech Stack &amp; Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-core-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Core Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-real-time-asynchronous" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Real-Time &amp; Asynchronous
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-email-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Email Service
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modules-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules Breakdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-design-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Design Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Design Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#service-layer-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Layer Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependency-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency Injection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../permissions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication & Permissions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database Schema
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflows & Edge Cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conclusion & future Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#request-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Request Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rest-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REST API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-time-websockets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-Time WebSockets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architectural-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architectural Principles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deep-dive-tech-stack-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deep Dive: Tech Stack &amp; Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deep Dive: Tech Stack &amp; Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-core-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Core Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-real-time-asynchronous" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Real-Time &amp; Asynchronous
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-email-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Email Service
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modules-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules Breakdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-design-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Design Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Design Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#service-layer-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Layer Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependency-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency Injection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="system-architecture">System Architecture</h1>
+<p>TrackUs follows a modern, asynchronous microservices-ready architecture built on FastAPI. It emphasizes real-time capabilities and strict tenant isolation.</p>
+<h2 id="request-flow">Request Flow</h2>
+<h3 id="rest-api">REST API</h3>
+<p>Client<br />
+→ Load Balancer / Nginx
+→ Uvicorn (ASGI Server)<br />
+→ FastAPI Router<br />
+→ Dependencies (Auth &amp; Permissions)<br />
+→ Service Layer (Business Logic)<br />
+→ SQLAlchemy (Async ORM)<br />
+→ PostgreSQL Database</p>
+<h3 id="real-time-websockets">Real-Time WebSockets</h3>
+<p>Client<br />
+→ WebSocket Handshake<br />
+→ Connection Manager (<code>app/realtime/manager.py</code>)<br />
+→ Redis Pub/Sub (Message Broker)<br />
+→ Broadcaster (Fan-out to connected clients)</p>
+<hr />
+<h2 id="architectural-principles">Architectural Principles</h2>
+<ul>
+<li><strong>API-First Design</strong>: All functionalities are exposed via RESTful endpoints.</li>
+<li><strong>Real-Time First</strong>: Core features like Chat and Location are built on WebSockets for sub-200ms latency.</li>
+<li><strong>Separation of Concerns</strong>: Logic is decoupled into Routers, Services, and Schemas (Pydantic).</li>
+<li><strong>Multi-Tenancy</strong>: Data is logically isolated by <code>tenant_id</code> at the database level.</li>
+<li><strong>Soft Deletion</strong>: Entities (Groups, Events) are marked as deleted to preserve history.</li>
+</ul>
+<hr />
+<h2 id="deep-dive-tech-stack-components">Deep Dive: Tech Stack &amp; Components</h2>
+<h3 id="1-core-framework">1. Core Framework</h3>
+<ul>
+<li><strong>FastAPI</strong>: High-performance Python framework for building APIs.</li>
+<li><strong>SQLAlchemy (Async)</strong>: Modern ORM for asynchronous database interactions.</li>
+<li><strong>Pydantic 2.0</strong>: Data validation and serialization.</li>
+<li><strong>PostgreSQL</strong>: Primary relational database with <code>asyncpg</code> driver.</li>
+</ul>
+<h3 id="2-real-time-asynchronous">2. Real-Time &amp; Asynchronous</h3>
+<ul>
+<li><strong>WebSockets</strong>: Native FastAPI support for bidirectional communication.</li>
+<li><strong>Redis</strong>: In-memory data store acting as:<ul>
+<li><strong>Pub/Sub Broker</strong>: Distributes chat messages and location updates across server instances.</li>
+<li><strong>Celery Broker</strong>: Queues background tasks.</li>
+<li><strong>Rate Limiting Backend</strong>: Prevents API abuse.</li>
+</ul>
+</li>
+<li><strong>Celery</strong>: Distributed task queue for non-blocking operations.<ul>
+<li><em>Tasks</em>: Sending emails (<code>users.tasks</code>), data cleanup (<code>cleanup.tasks</code>).</li>
+</ul>
+</li>
+<li><strong>Celery Beat</strong>: Scheduler for periodic maintenance jobs.<ul>
+<li><em>Jobs</em>: <code>archive_old_events</code>, <code>prune_inactive_users</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-email-service">3. Email Service</h3>
+<ul>
+<li><strong>SMTP Relay</strong>: Transactional emails sent via <code>aiosmtplib</code>.<ul>
+<li>Supports providers like Brevo (Sendinblue), SendGrid, or AWS SES via standard SMTP configuration.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="modules-breakdown">Modules Breakdown</h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Description</th>
+<th>Key Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>auth</code></td>
+<td>Identity &amp; Access Management.</td>
+<td>JWT issuance, Refresh Tokens, Blacklisting.</td>
+</tr>
+<tr>
+<td><code>tenants</code></td>
+<td>Organization Management.</td>
+<td><code>Tenant</code> model, onboarding flows.</td>
+</tr>
+<tr>
+<td><code>users</code></td>
+<td>User Profiles.</td>
+<td><code>User</code> model, profile application.</td>
+</tr>
+<tr>
+<td><code>groups</code></td>
+<td>Team Management.</td>
+<td><code>Group</code> (Team) management, membership logic.</td>
+</tr>
+<tr>
+<td><code>events</code></td>
+<td>Trip Management.</td>
+<td><code>TravelEvent</code> (Trip) creation, itinerary planning.</td>
+</tr>
+<tr>
+<td><code>chat</code></td>
+<td>Communication.</td>
+<td><code>ChatMessage</code>, <code>EventMessage</code>. WebSocket endpoints.</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td>Live Tracking.</td>
+<td>Real-time coordinate processing, location history.</td>
+</tr>
+<tr>
+<td><code>notifications</code></td>
+<td>Alerts.</td>
+<td>In-app notifications via WebSocket.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-design-patterns">Key Design Patterns</h2>
+<h3 id="service-layer-pattern">Service Layer Pattern</h3>
+<p>Business logic is abstracted away from API routes into independent Service classes (e.g., <code>GroupService</code>, <code>ChatService</code>). This ensures:
+- <strong>Reusability</strong>: Logic can be called from API, Celery tasks, or WebSockets.
+- <strong>Testability</strong>: Services can be unit tested in isolation.</p>
+<h3 id="dependency-injection">Dependency Injection</h3>
+<p>Authentication and permissions are injected into routes using FastAPI's <code>Depends</code>.
+- <code>get_current_user</code>: Validates JWT.
+- <code>require_tenant_admin</code>: Enforces RBAC.
+- <code>get_db</code>: Provides a scoped database session.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
